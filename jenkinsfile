@@ -1,0 +1,60 @@
+@Library('sharedlibrary_cicd')_
+pipeline
+{
+    agent any
+    stages
+    {
+        stage('Mcont download from github')
+        {
+            steps
+            {
+                script
+                {
+                    cicd1.download("maven")
+                }
+            }
+        }
+        stage('Mcont build')
+        {
+            steps
+            {
+                script
+                {
+                    cicd1.build()
+                }
+            }
+        }
+        stage('Mcont deployment')
+        {
+            steps
+            {
+                script
+                {
+                    cicd1.deployment("declarativepipelinewithsharedlibrary","172.31.82.37","testapp")
+                }
+            }
+        }
+        stage('Mtesting')
+        {
+            steps
+            {
+                script
+                {
+                    cicd1.download("FunctionalTesting")
+                    cicd1.test("declarativepipelinewithsharedlibrary")
+                }
+            }
+        }
+        stage('Mcont delivery')
+        {
+            steps
+            {
+                script
+                {
+                    cicd1.deployment("declarativepipelinewithsharedlibrary","172.31.90.238","prodapp")
+                }
+            }
+        }
+    }
+}
+
