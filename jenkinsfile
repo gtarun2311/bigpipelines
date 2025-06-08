@@ -4,7 +4,7 @@ pipeline
     agent any
     stages
     {
-        stage('Mcont download from github')
+        stage('Lcont download from github')
         {
             steps
             {
@@ -14,7 +14,7 @@ pipeline
                 }
             }
         }
-        stage('Mcont build')
+        stage('Lcont build')
         {
             steps
             {
@@ -24,7 +24,7 @@ pipeline
                 }
             }
         }
-        stage('Mcont deployment')
+        stage('Lcont deployment')
         {
             steps
             {
@@ -33,28 +33,8 @@ pipeline
                     cicd1.deployment("declarativepipelinewithsharedlibrary","172.31.82.37","testapp")
                 }
             }
-        }
-        stage('Mtesting')
-        {
-            steps
-            {
-                script
-                {
-                    cicd1.download("FunctionalTesting")
-                    cicd1.test("declarativepipelinewithsharedlibrary")
-                }
-            }
-        }
-        stage('Mcont delivery')
-        {
-            steps
-            {
-                script
-                {
-                    cicd1.deployment("declarativepipelinewithsharedlibrary","172.31.90.238","prodapp")
-                }
-            }
-        }
-    }
-}
+  }
+
+  }
+  }
 
